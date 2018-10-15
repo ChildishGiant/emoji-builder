@@ -1,0 +1,61 @@
+<html>
+
+    <head>
+        <style>
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 3em;
+            }
+
+            input {
+                font-size: 1em;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <script>
+
+            function join() {
+
+
+                var list = Array.from(document.querySelectorAll("input.in"));
+                list.pop() //Remove the last, empty array
+
+                var vals = list.map(element => element.value);
+
+                document.getElementById("out").value = vals.join("‍")
+            }
+
+            function update() {
+                var elements = document.querySelectorAll('input.in');
+
+                for (var i = 0; i < elements.length; i++) {
+
+
+                    if (elements[i].value !== "" && elements[i] === elements[elements.length - 1]) {
+                        elements[elements.length - 1].insertAdjacentHTML('afterEnd',
+                            "<input class='in' oninput='update()'>");
+                    }
+
+                    if (elements[i] !== elements[elements.length - 1] && elements[i].value === "") { // If it's not last element and empty
+                        elements[i].remove() // Remove it
+                    }
+                }
+            }
+        </script>
+
+        <a href="https://emojipedia.org/emoji-zwj-sequences/">What am I doing?</a> <br>
+
+        <input class="in" oninput="update()">
+
+
+        <input id="out" placeholder="out"></textarea>
+
+        <button onclick="join()">Join</button>
+
+
+    </body>
+
+</html>
